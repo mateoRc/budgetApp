@@ -16,8 +16,11 @@ var budgetController = (function() {
 // UI CONTROLLER
 var UIController = (function() {
 
-    
-
+    return {
+        getinput: function() {
+            
+        }
+    }
 })();
 
 
