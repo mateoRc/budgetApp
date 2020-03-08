@@ -16,7 +16,17 @@
  */
 
 
- // BUDGET CONTROLLER
+ /**
+  * BUDGET CONTROLLER
+  * 
+  * Expense, Income - function contructors.
+  * calculateTotal - calculates income or expenses based on type.
+  * data - object in which all items are stored. allItems obj - exp or inc properties (array). 
+  * totals obj - stores total expenses and income. 
+  * data object - budget and percentage.
+  * 
+  * returns addItem, calculateBudget, getBudget
+  */
 var budgetController = (function() {
 
     var Expense = function(id, description, value) {
@@ -114,7 +124,23 @@ var budgetController = (function() {
 
 })();
 
-// UI CONTROLLER
+/**
+ * UI CONTROLLER
+ * 
+ * 
+ * 
+ * 
+ * 
+ * 
+ * 
+ * 
+ * 
+ * 
+ * 
+ * 
+ * 
+ */
+
 var UIController = (function() {
 
     var DOMStrings = {
