@@ -1,7 +1,5 @@
  
 /**
- * IIFE 
- * 
  *  1) Setting up first event listeners
  *  2) Reading input data
  *  3) Creating init function 
@@ -17,7 +15,7 @@
 
 
  /**
-  * BUDGET CONTROLLER
+  * BUDGET CONTROLLER - IIFE
   * 
   * Expense, Income - function contructors.
   * calculateTotal - calculates income or expenses based on type.
