@@ -2,13 +2,13 @@
 /**
  * IIFE 
  * 
- * 
  * 1) Setting up first event listeners
  * 2) Reading input data
  * 3) Creating init function 02.03.
  * 4) Creating income and expense function constructors 04.03.
  * 5) Adding a new item to budget controller
  * 6) Adding a new item to the UI
+ * 7) Clear HTML fields, use querySelectorAll, convert list to array
  * 
  */
 
@@ -121,6 +121,18 @@ var UIController = (function() {
             //Insert the HTML into the DOM
             document.querySelector(element).insertAdjacentHTML('beforeend', newHtml);
             }
+        },
+
+        clearFields: function() {
+            var fields, fieldsArr;
+
+            fields = document.querySelectorAll(DOMStrings.inputDescription + ', ' + DOMStrings.inputValue); //returns a list 
+
+            var fieldsArr = Array.prototype.slice.call(fields);
+
+            fieldsArr.forEach(function(curr, i, arr) {
+                curr.value = "";
+            });
         },
 
         getDOMStrings: function() {
