@@ -2,15 +2,16 @@
 /**
  * IIFE 
  * 
- * 1) Setting up first event listeners
- * 2) Reading input data
- * 3) Creating init function 
- * 4) Creating income and expense function constructors 
- * 5) Adding a new item to budget controller
- * 6) Adding a new item to the UI
- * 7) Clear HTML fields, use querySelectorAll, convert list to array
- * 8) Preventing false inputs, convert input to num
- * 9) Updating the budget - creating simple, reusable functions with one purpose
+ *  1) Setting up first event listeners
+ *  2) Reading input data
+ *  3) Creating init function 
+ *  4) Creating income and expense function constructors 
+ *  5) Adding a new item to budget controller
+ *  6) Adding a new item to the UI
+ *  7) Clear HTML fields, use querySelectorAll, convert list to array
+ *  8) Preventing false inputs, convert input to num
+ *  9) Updating the budget - creating simple, reusable functions with one purpose (budget ctrl)
+ * 10) Updating the UI - DOM manipulation - updating the budget and total vals (UI ctrl)
  * 
  */
 
@@ -30,6 +31,15 @@ var budgetController = (function() {
         this.value = value;
     };
 
+    // for calculating income or expenses - type keyword
+    var calculateTotal  = function(type) {
+        var sum = 0;
+        data.allItems[type].forEach(function(curr){
+            sum += curr.value; //curr referes either to inc or exp object
+        });
+        data.totals[type] = sum;
+    };
+
     var data = {
         allItems: {
             exp: [],
@@ -39,7 +49,9 @@ var budgetController = (function() {
         totals: {
             exp: 0,
             inc: 0
-        }
+        },
+        budget: 0,
+        percentage: -1
     };
 
     return {
@@ -66,6 +78,33 @@ var budgetController = (function() {
 
             // Return the new element
             return newItem;
+        },
+
+        calculateBudget: function() {
+
+            // total income and total expenses
+            calculateTotal('exp');
+            calculateTotal('inc');
+            
+            // calc budget
+            data.budget = data.totals.inc - data.totals.exp;
+
+            // percentage of income we spended
+            if (data.totals.inc > 0) {
+                data.percentage = Math.round((data.totals.exp / data.totals.inc) * 100);
+            }
+            else {
+                data.percentage = -1;
+            }
+        },
+
+        getBudget: function() {
+            return {
+                budget: data.budget,
+                totalInc: data.totals.inc,
+                totalExp: data.totals.exp,
+                percentage: data.percentage
+            }
         },
 
         testing: function() {
@@ -167,12 +206,13 @@ var controller = (function(budgetCtrl, UICtrl) {
     var updateBudget = function() {
 
         // 1. calculate the budget
-
+        budgetController.calculateBudget();
 
         // 2. return the budget
+        var budget = budgetController.getBudget();
 
         // 3. display the budget on the UI
-
+        console.log(budget);
     };
 
     var ctrlAddItem = function() {
