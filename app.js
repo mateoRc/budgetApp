@@ -11,6 +11,8 @@
  *  9) Updating the budget - creating simple, reusable functions with one purpose (budget ctrl)
  * 10) Updating the UI - DOM manipulation - updating the budget and total vals (UI ctrl)
  * 
+ * 11) what to do next
+ * 
  */
 
 
@@ -138,7 +140,6 @@ var budgetController = (function() {
  * 
  * 
  */
-
 var UIController = (function() {
 
     var DOMStrings = {
@@ -148,7 +149,11 @@ var UIController = (function() {
         inputValue: '.add__value',
         inputBtn: '.add__btn',
         incomeContainer: '.income__list',
-        expensesContainer: '.expenses__list'
+        expensesContainer: '.expenses__list',
+        budgetLabel: '.budget__value',
+        incomeLabel: '.budget__income--value',
+        expenseLabel: '.budget__expenses--value',
+        percentageLabel: '.budget__expenses--percentage'
     };
 
     return {
@@ -167,12 +172,12 @@ var UIController = (function() {
             // Create HTML string with placeholder text
             if (type === 'inc'){
                 element = DOMStrings.incomeContainer;
-                console.log('type is inc');
+                //console.log('type is inc');
                 html = ' <div class="item clearfix" id="income-%id%""><div class="item__description">%description%</div><div class="right clearfix"><div class="item__value">%value%</div><div class="item__delete"><button class="item__delete--btn"><i class="ion-ios-close-outline"></i></button></div></div></div>';
             }
             else if (type === 'exp') {
                 element = DOMStrings.expensesContainer;
-                console.log('type is exp');
+                //console.log('type is exp');
                 html = '<div class="item clearfix" id="expense-%id%"><div class="item__description">%description%</div><div class="right clearfix"><div class="item__value">%value%</div><div class="item__percentage">21%</div><div class="item__delete"><button class="item__delete--btn"><i class="ion-ios-close-outline"></i></button></div></div></div>';
             }
             
@@ -202,13 +207,42 @@ var UIController = (function() {
             fieldsArr[0].focus(); // return pointer to description field
         },
 
+        displayBudget: function(obj) {
+
+            document.querySelector(DOMStrings.budgetLabel).textContent = obj.budget;
+            document.querySelector(DOMStrings.incomeLabel).textContent = obj.totalInc;
+            document.querySelector(DOMStrings.expenseLabel).textContent = obj.totalExp;
+            
+
+            if (obj.percentage > 0) {
+                document.querySelector(DOMStrings.percentageLabel).textContent = obj.percentage + '%';
+            }
+            else {
+                document.querySelector(DOMStrings.percentageLabel).textContent = '---';
+            }
+        },
+
         getDOMStrings: function() {
             return DOMStrings;
         }
     };
 })();
 
-// GLOBAL APP CONTROLLER
+/**
+ * GLOBAL APP CONTROLLER
+ * 
+ * 
+ * 
+ * 
+ * 
+ * 
+ * 
+ * 
+ * 
+ * 
+ * 
+ * 
+ */
 var controller = (function(budgetCtrl, UICtrl) {
 
     var setupEventListeners = function() {
@@ -236,7 +270,8 @@ var controller = (function(budgetCtrl, UICtrl) {
         var budget = budgetController.getBudget();
 
         // 3. display the budget on the UI
-        console.log(budget);
+        //console.log(budget);
+        UICtrl.displayBudget(budget);
     };
 
     var ctrlAddItem = function() {
@@ -244,7 +279,7 @@ var controller = (function(budgetCtrl, UICtrl) {
         
         // 1. get the field input data
         input = UICtrl.getInput();
-        console.log(input);
+        //console.log(input);
 
         // 2. add the item to the budget controller if val is > 0
         if (input.description !== "" && !isNaN(input.value) && input.value > 0){
@@ -268,6 +303,13 @@ var controller = (function(budgetCtrl, UICtrl) {
         // when application starts...
         init: function() {
             console.log('application has started');
+            //reset the display
+            UICtrl.displayBudget({
+                budget: 0,
+                totalInc: 0,
+                totalExp: 0,
+                percentage: -1
+            });
             setupEventListeners();
         }
     };
