@@ -4,11 +4,13 @@
  * 
  * 1) Setting up first event listeners
  * 2) Reading input data
- * 3) Creating init function 02.03.
- * 4) Creating income and expense function constructors 04.03.
+ * 3) Creating init function 
+ * 4) Creating income and expense function constructors 
  * 5) Adding a new item to budget controller
  * 6) Adding a new item to the UI
  * 7) Clear HTML fields, use querySelectorAll, convert list to array
+ * 8) Preventing false inputs, convert input to num
+ * 9) Updating the budget - creating simple, reusable functions with one purpose
  * 
  */
 
@@ -56,7 +58,7 @@ var budgetController = (function() {
                 newItem = new Expense(ID, des, val);
             }
             else if (type === 'inc') {
-                newItem = new Expense(ID, des, val);
+                newItem = new Income(ID, des, val);
             }
 
             // Push it into data structure
@@ -93,13 +95,13 @@ var UIController = (function() {
 
                 type: document.querySelector(DOMStrings.inputType).value, // will be either inc or exp
                 description: document.querySelector(DOMStrings.inputDescription).value,
-                value: document.querySelector(DOMStrings.inputValue).value
+                value: parseFloat(document.querySelector(DOMStrings.inputValue).value) // parseFloat -> takes string and converts it to num
             };
         },
 
         addListItem: function(obj, type) {
             var html, newHtml, element;
-            //1. Create HTML string with placeholder text
+            // Create HTML string with placeholder text
             if (type === 'inc'){
                 element = DOMStrings.incomeContainer;
                 console.log('type is inc');
@@ -113,12 +115,12 @@ var UIController = (function() {
             
 
             if (element != null) {
-            //Replace the placeholder text with some actual data
+            // Replace the placeholder text with some actual data
             newHtml = html.replace('%id%', obj.id);
             newHtml = newHtml.replace('%description%', obj.description);
             newHtml = newHtml.replace('%value%', obj.value);
             
-            //Insert the HTML into the DOM
+            // Insert the HTML into the DOM
             document.querySelector(element).insertAdjacentHTML('beforeend', newHtml);
             }
         },
@@ -162,7 +164,17 @@ var controller = (function(budgetCtrl, UICtrl) {
 
     };
 
-   
+    var updateBudget = function() {
+
+        // 1. calculate the budget
+
+
+        // 2. return the budget
+
+        // 3. display the budget on the UI
+
+    };
+
     var ctrlAddItem = function() {
         var input, newItem;
         
@@ -171,20 +183,19 @@ var controller = (function(budgetCtrl, UICtrl) {
         console.log(input);
 
         // 2. add the item to the budget controller if val is > 0
-        if (input.value > 0){
-                newItem = budgetController.addItem(input.type, input.description, input.value);
+        if (input.description !== "" && !isNaN(input.value) && input.value > 0){
             
-
-            console.log(newItem + " " + input);
+            newItem = budgetController.addItem(input.type, input.description, input.value);
+            
             // 3. add the new item to the UI
             UICtrl.addListItem(newItem, input.type);
 
             // 4. clear the fields
             UICtrl.clearFields();
 
-            // 5. calculate the budget
-
-            // 6. display the budget on the UI
+            // 5. calculate and update budget
+            updateBudget();
+            
 
         }
     };
