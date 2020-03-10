@@ -215,6 +215,12 @@ var UIController = (function() {
             }
         },
 
+        // we can only remove a child element
+        deleteListItem: function(selectorID) { 
+            var el = document.getElementById(selectorID);
+            el.parentNode.removeChild(el);
+        },
+
         clearFields: function() {
             var fields, fieldsArr;
 
@@ -332,12 +338,12 @@ var controller = (function(budgetCtrl, UICtrl) {
             splitID = itemID.split('-');
             type = splitID[0];
             ID = parseInt(splitID[1]);
-
             // delete item from data structure
             budgetController.deleteItem(type, ID);
             // delete item from UI
-
+            UIController.deleteListItem(itemID);
             // update and show the new budget
+            updateBudget();
         }
     };
 
