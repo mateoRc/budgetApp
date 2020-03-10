@@ -27,7 +27,10 @@
   * totals obj - stores total expenses and income. 
   * data object - budget and percentage.
   * 
-  * returns addItem, calculateBudget, getBudget
+  * returns 
+  *     addItem 
+  *     calculateBudget 
+  *     getBudget
   */
 var budgetController = (function() {
 
@@ -148,17 +151,15 @@ var budgetController = (function() {
 /**
  * UI CONTROLLER
  * 
+ * DOMStrings object
  * 
- * 
- * 
- * 
- * 
- * 
- * 
- * 
- * 
- * 
- * 
+ * returns
+ *      getInput function gets user input type, description and value 
+ *      addListItem function creates child HTML element that contains input vals
+ *      deleteListItem deletes child HTML element
+ *      clearFields clears description and value fields, returns pointer to description
+ *      displayBudget displays total budget, income, expenses and percentage
+ *      getDOMStrings function returns DOMStrings obj
  * 
  */
 var UIController = (function() {
@@ -259,17 +260,13 @@ var UIController = (function() {
 /**
  * GLOBAL APP CONTROLLER
  * 
+ * setupEventListeners event listeners
+ * updateBudget function calculates budget and displays it on UI
+ * ctrlAddItem adds item to the data structure and UI, updates Budget
+ * ctrlDeleteItem deletes item from data structure and UI, updates Budget
  * 
- * 
- * 
- * 
- * 
- * 
- * 
- * 
- * 
- * 
- * 
+ * returns init function
+ *  
  */
 var controller = (function(budgetCtrl, UICtrl) {
 
@@ -348,7 +345,7 @@ var controller = (function(budgetCtrl, UICtrl) {
     };
 
     return {
-        // @app start
+        // @ app start
         init: function() {
             console.log('application has started');
             //reset the display
