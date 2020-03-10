@@ -1,4 +1,3 @@
- 
 /**
  *  1) Setting up first event listeners
  *  2) Reading input data
