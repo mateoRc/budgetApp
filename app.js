@@ -1,35 +1,6 @@
-/**
- * PLANNING 1: TODO: -> basic functionality 
- *  1) Set up first event listeners
- *  2) Read input data
- *  3) Createinit function 
- *  4) Create income and expense function constructors 
- *  5) Add a new item to budget controller
- *  6) Add a new item to the UI
- *  7) Clear HTML fields, use querySelectorAll, convert list to array
- *  8) Prevent false inputs, convert input to num
- *  9) Update the budget - creating simple, reusable functions with one purpose (budget ctrl)
- * 10) Update the UI - DOM manipulation - update the budget and total vals (UI ctrl)
- * 
- * PLANNIG 2: TODO: -> delete functionality
- * 11) Set up the delete event listener using EVENT DELEGATION 
- * 12) Delete an item from budget controller -> delete from data structure, UI, update budget
- * 
- * PLANNING 3: TODO: -> UX improvements
- * 13) Calculate percentages on child elements (expenses)
- * 14) Update them in UI
- * 15) Display current month and year
- * 16) Number formatting
- * 17) Improve input field UX
- * 
- * TODO: finishing touches
- * 18) Change event
- * 
- */
-
 
  /**
-  * BUDGET CONTROLLER - IIFE
+  * BUDGET CONTROLLER
   * 
   * Expense, Income - function contructors.
   * calculateTotal - calculates income or expenses based on type.
